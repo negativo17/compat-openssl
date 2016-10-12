@@ -41,7 +41,7 @@ RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack -DPURIFY"
     shared zlib enable-md2 %{openssltarget}
 
 make depend
-%make_build
+make
 
 %install
 install -D -m755 libssl.so.1.0.0 %{buildroot}/%{_libdir}/libssl.so.1.0.0
@@ -51,7 +51,8 @@ install -D -m755 libcrypto.so.1.0.0 %{buildroot}/%{_libdir}/libcrypto.so.1.0.0
 
 %postun -p /sbin/ldconfig
 
-%files 
+%files
+%license LICENSE
 %{_libdir}/libssl.so.1.0.0
 %{_libdir}/libcrypto.so.1.0.0
 
