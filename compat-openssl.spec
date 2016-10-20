@@ -35,8 +35,8 @@ version 1.0.0 and only contains the shared libraries.
 RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack -DPURIFY"
 
 ./Configure \
-    --prefix=/usr \
-    --openssldir=/etc/ssl \
+    --prefix=%{_prefix} \
+    --openssldir=%{_sysconfdir}/ssl \
     --libdir=%{_libdir} \
     shared zlib enable-md2 %{openssltarget}
 
