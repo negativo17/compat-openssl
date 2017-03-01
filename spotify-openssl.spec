@@ -1,16 +1,23 @@
+# Remove bundled libraries from requirements/provides
+%global         __requires_exclude ^(libcrypto\\.so\\..*|libssl\\.so\\..*)$
+%global         __provides_exclude ^(lib.*\\.so.*)$
+
 %ifarch x86_64 
 %global openssltarget linux-x86_64
 %else
 %global openssltarget linux-elf
 %endif
 
-Summary:    Utilities from the general purpose cryptography library with TLS implementation
-Name:       spotify-openssl
-Version:    1.0.0t
-Release:    2%{?dist}
-License:    OpenSSL
-URL:        http://www.openssl.org/
-Source:     ftp://ftp.openssl.org/source/openssl-%{version}.tar.gz
+Name:           spotify-openssl
+Version:        1.0.0t
+Release:        3%{?dist}
+Summary:        Spotify compatibility package - OpenSSL
+License:        OpenSSL
+URL:            http://www.openssl.org/
+
+ExclusiveArch:  x86_64 %{ix86}
+
+Source:         ftp://ftp.openssl.org/source/openssl-%{version}.tar.gz
 
 BuildRequires:  coreutils
 BuildRequires:  diffutils
@@ -21,17 +28,10 @@ BuildRequires:  util-linux
 BuildRequires:  zlib-devel
 
 Requires:       spotify-client%{?_isa}
-# Obsoletes old compat-openssl package, breaks some Steam games
-Provides:       compat-openssl = 1.0.0t
-Obsoletes:      compat-openssl <= 1.0.0t
 
 %description
-The OpenSSL toolkit provides support for secure communications between machines.
-OpenSSL includes a certificate management tool and shared libraries which
-provide various cryptographic algorithms and protocols.
-
-This package is meant for compatibility purposes with Spotify which requires an
-old version 1.0.0 in a non-standard path.
+This package is meant for compatibility purposes with Spotify which requires old
+versions of specific libraries in a non-standard path.
 
 %prep
 %setup -q -n openssl-%{version}
@@ -58,6 +58,12 @@ install -D -m755 libcrypto.so.1.0.0 %{buildroot}/%{_libdir}/spotify-client/libcr
 %{_libdir}/spotify-client/libcrypto.so.1.0.0
 
 %changelog
+* Wed Mar 01 2017 Simone Caronni <negativo17@gmail.com> - 1.0.0t-3
+- Remove compat-openssl Provides/Requires.
+- Filter out libraries in Provides/Requires.
+- Update description, summary.
+- Make it ExclusiveArch as the client itself.
+
 * Sun Feb 12 2017 Simone Caronni <negativo17@gmail.com> - 1.0.0t-2
 - Rename to spotify-openssl and do not install along with system libraries.
 
