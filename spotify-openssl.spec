@@ -10,7 +10,7 @@
 
 Name:           spotify-openssl
 Version:        1.0.0t
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Spotify compatibility package - OpenSSL
 License:        OpenSSL
 URL:            http://www.openssl.org/
@@ -43,7 +43,7 @@ RPM_OPT_FLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack -DPURIFY"
     --prefix=%{_prefix} \
     --openssldir=%{_sysconfdir}/ssl \
     --libdir=%{_libdir} \
-    shared zlib enable-md2 %{openssltarget}
+    shared zlib enable-md2 %{openssltarget} "%{optflags}"
 
 make depend
 make
@@ -58,6 +58,9 @@ install -D -m755 libcrypto.so.1.0.0 %{buildroot}/%{_libdir}/spotify-client/libcr
 %{_libdir}/spotify-client/libcrypto.so.1.0.0
 
 %changelog
+* Wed Oct 04 2017 Simone Caronni <negativo17@gmail.com> - 1.0.0t-4
+- Add proper compiler flags.
+
 * Wed Mar 01 2017 Simone Caronni <negativo17@gmail.com> - 1.0.0t-3
 - Remove compat-openssl Provides/Requires.
 - Filter out libraries in Provides/Requires.
