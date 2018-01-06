@@ -9,8 +9,8 @@
 %endif
 
 Name:           spotify-openssl
-Version:        1.0.0t
-Release:        4%{?dist}
+Version:        1.1.0g
+Release:        1%{?dist}
 Summary:        Spotify compatibility package - OpenSSL
 License:        OpenSSL
 URL:            http://www.openssl.org/
@@ -49,15 +49,18 @@ make depend
 make
 
 %install
-install -D -m755 libssl.so.1.0.0 %{buildroot}/%{_libdir}/spotify-client/libssl.so.1.0.0
-install -D -m755 libcrypto.so.1.0.0 %{buildroot}/%{_libdir}/spotify-client/libcrypto.so.1.0.0
+install -D -m755 libssl.so.1.1 %{buildroot}/%{_libdir}/spotify-client/libssl.so.1.1
+install -D -m755 libcrypto.so.1.1 %{buildroot}/%{_libdir}/spotify-client/libcrypto.so.1.1
 
 %files
 %license LICENSE
-%{_libdir}/spotify-client/libssl.so.1.0.0
-%{_libdir}/spotify-client/libcrypto.so.1.0.0
+%{_libdir}/spotify-client/libssl.so.1.1
+%{_libdir}/spotify-client/libcrypto.so.1.1
 
 %changelog
+* Sat Jan 06 2018 Simone Caronni <negativo17@gmail.com> - 1.1.0g-1
+- Update to 1.1 for RHEL/CentOS.
+
 * Wed Oct 04 2017 Simone Caronni <negativo17@gmail.com> - 1.0.0t-4
 - Add proper compiler flags.
 
